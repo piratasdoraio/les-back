@@ -6,13 +6,17 @@ var router = express.Router()
 //   console.log('Time: ', Date.now())
 //   next()
 // })
-// define the home page route
-router.get('/', function (req, res) {
-  res.send('Birds home page')
+
+router.post('/', (req, res) => {
+    res.json({ "message": "Em desenvolvimento" })
 })
-// define the about route
-router.get('/about', function (req, res) {
-  res.send('About birds')
+
+router.get('/:id', (req, res) => {
+    res.json({ "message": "Em desenvolvimento" })
+})
+
+router.get('/:id/exames', (req, res) => {
+    res.json({ "message": "Em desenvolvimento" })
 })
 
 module.exports = router

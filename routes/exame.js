@@ -6,13 +6,21 @@ var router = express.Router()
 //   console.log('Time: ', Date.now())
 //   next()
 // })
-// define the home page route
-router.get('/', function (req, res) {
-  res.send('Birds home page')
+
+router.post('/', (req, res) => {
+    res.json({ "message": "Em desenvolvimento" })
 })
-// define the about route
-router.get('/about', function (req, res) {
-  res.send('About birds')
+
+router.post('/:id', (req, res) => {
+    res.json({ "message": "Em desenvolvimento" })
+})
+
+router.post('/:id/realizar', (req, res) => {
+    res.json({ "message": "Em desenvolvimento" })
+})
+
+router.patch('/:id/validar', (req, res) => {
+    res.json({ "message": "Em desenvolvimento" })
 })
 
 module.exports = router
