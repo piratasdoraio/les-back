@@ -1,0 +1,152 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model admins {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique @db.VarChar(255)
+  senha     String    @db.VarChar(255)
+  nome      String    @db.VarChar(255)
+  cpf       String    @db.VarChar(255)
+  telefone  String    @db.VarChar(255)
+  endereco  Int
+  enderecos enderecos @relation(fields: [endereco], references: [id])
+
+  @@index([endereco], name: "endereco")
+}
+
+model arquivos {
+  id     Int      @id @default(autoincrement())
+  nome   String   @db.VarChar(255)
+  data   Bytes    @db.MediumBlob
+  mime   String   @db.VarChar(50)
+  size   BigInt?
+  exames exames[]
+}
+
+model configs {
+  chave String @id @db.VarChar(255)
+  valor String @unique @db.VarChar(255)
+}
+
+model consultas {
+  id        Int        @id @default(autoincrement())
+  paciente  Int?
+  data      DateTime   @db.DateTime(0)
+  checkin   Boolean
+  status    String     @db.VarChar(255)
+  medico    Int?
+  cid       String?    @db.VarChar(255)
+  retorno   Boolean?
+  medicos   medicos?   @relation(fields: [medico], references: [id])
+  pacientes pacientes? @relation(fields: [paciente], references: [id])
+  exames    exames[]
+
+  @@index([medico], name: "medico")
+  @@index([paciente], name: "paciente")
+}
+
+model enderecos {
+  id           Int            @id @default(autoincrement())
+  cep          String         @db.VarChar(255)
+  numero       String         @db.VarChar(255)
+  complemento  String         @db.VarChar(255)
+  admins       admins[]
+  funcionarios funcionarios[]
+  medicos      medicos[]
+  pacientes    pacientes[]
+}
+
+model exames {
+  id        Int        @id @default(autoincrement())
+  consulta  Int?
+  tipo      String     @db.VarChar(255)
+  data      DateTime   @db.DateTime(0)
+  status    String     @db.VarChar(255)
+  medico    Int?
+  arquivo   Int?
+  arquivos  arquivos?  @relation(fields: [arquivo], references: [id])
+  consultas consultas? @relation(fields: [consulta], references: [id])
+  medicos   medicos?   @relation(fields: [medico], references: [id])
+  laudos    laudos[]
+
+  @@index([arquivo], name: "arquivo")
+  @@index([consulta], name: "consulta")
+  @@index([medico], name: "medico")
+}
+
+model funcionarios {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique @db.VarChar(255)
+  senha     String    @db.VarChar(255)
+  nome      String    @db.VarChar(255)
+  cpf       String    @db.VarChar(255)
+  telefone  String    @db.VarChar(255)
+  endereco  Int
+  enderecos enderecos @relation(fields: [endereco], references: [id])
+
+  @@index([endereco], name: "endereco")
+}
+
+model laudos {
+  id       Int      @id @default(autoincrement())
+  exame    Int?
+  anotacao String   @db.VarChar(255)
+  autor    Int?
+  aprovado Boolean?
+  medicos  medicos? @relation(fields: [autor], references: [id])
+  exames   exames?  @relation(fields: [exame], references: [id])
+
+  @@index([autor], name: "autor")
+  @@index([exame], name: "exame")
+}
+
+model medicos {
+  id               Int         @id @default(autoincrement())
+  email            String      @unique @db.VarChar(255)
+  senha            String      @db.VarChar(255)
+  nome             String      @db.VarChar(255)
+  cpf              String      @db.VarChar(255)
+  telefone         String      @db.VarChar(255)
+  endereco         Int
+  tipo             String      @db.VarChar(255)
+  crm              String?     @db.VarChar(255)
+  titulacao        String?     @db.VarChar(255)
+  residenciainicio DateTime?   @db.DateTime(0)
+  residenciafim    DateTime?   @db.DateTime(0)
+  enderecos        enderecos   @relation(fields: [endereco], references: [id])
+  consultas        consultas[]
+  exames           exames[]
+  laudos           laudos[]
+
+  @@index([endereco], name: "endereco")
+}
+
+model pacientes {
+  id         Int         @id @default(autoincrement())
+  email      String      @unique @db.VarChar(255)
+  senha      String      @db.VarChar(255)
+  nome       String      @db.VarChar(255)
+  cpf        String      @db.VarChar(255)
+  telefone   String      @db.VarChar(255)
+  endereco   Int
+  nascimento DateTime    @db.DateTime(0)
+  genero     String?     @db.VarChar(255)
+  nomesocial String?     @db.VarChar(255)
+  sexo       String?     @db.VarChar(255)
+  pele       String?     @db.VarChar(255)
+  enderecos  enderecos   @relation(fields: [endereco], references: [id])
+  consultas  consultas[]
+
+  @@index([endereco], name: "endereco")
+}
+
+model tokens {
+  id    Int    @id @default(autoincrement())
+  token String @unique @db.VarChar(255)
+}
