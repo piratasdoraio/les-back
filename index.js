@@ -10,8 +10,13 @@ var funcionario = require('./routes/funcionario')
 var admin = require('./routes/admin')
 var sistema = require('./routes/sistema')
 
-app.get('/', (req, res) => {
-    res.send('Hello World')
+const db = require('./modules/db')
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.get('/', async (req, res) => {
+    res.json({"message": "Em desenvolvimento"})
 })
 
 app.use('/paciente', paciente)
