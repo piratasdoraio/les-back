@@ -1,7 +1,5 @@
 var express = require('express')
 const db = require('../modules/db')
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
 var router = express.Router()
 
 // // middleware that is specific to this router
@@ -11,7 +9,7 @@ var router = express.Router()
 // })
 
 router.post('/', async (req, res) => {
-    let paciente = await prisma.pacientes.create({
+    let paciente = await db.pacientes.create({
         data: {
             email: req.body.email,
             senha: req.body.senha,
