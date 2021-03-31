@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 
 var paciente = require('./routes/paciente')
@@ -14,6 +15,7 @@ const db = require('./modules/db')
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors())
 
 app.get('/', async (req, res) => {
     res.json({"message": "Em desenvolvimento"})
