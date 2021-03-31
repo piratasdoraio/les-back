@@ -27,10 +27,15 @@ function verifyJWT(req, res, next) {
 var axios = require('axios').default
 
 router.post('/', async (req, res) => {
+    let senha = require("crypto")
+        .createHash("sha256")
+        .update(req.body.senha)
+        .digest("hex");
+
     let paciente = await db.pacientes.create({
         data: {
             email: req.body.email,
-            senha: req.body.senha,
+            senha: senha,
             nome: req.body.nome,
             telefone: req.body.telefone,
             cpf: req.body.cpf,
@@ -49,19 +54,23 @@ router.post('/', async (req, res) => {
         "de": "PDR MED",
         "email": paciente.email,
         "assunto": "Conta criada",
-        "mensagem": "Sua conta foi criada"
+        "mensagem": `Olá ${paciente.nome}, sua conta foi registrada com o id ${paciente.id}`
     })
     res.json({ "message": `Paciente ${paciente.nome} criado com o id ${paciente.id}` })
 })
 
 router.post('/login', async (req, res) => {
+    let senha = require("crypto")
+        .createHash("sha256")
+        .update(req.body.senha)
+        .digest("hex");
     let paciente = await db.pacientes.findFirst({
         where: {
             email: {
                 equals: req.body.email
             },
             senha: {
-                equals: req.body.senha
+                equals: senha
             }
         }
     })
