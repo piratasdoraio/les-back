@@ -26,6 +26,7 @@ function verifyJWT(req, res, next) {
 
 var axios = require('axios').default
 
+// Cadastro de Paciente
 router.post('/', async (req, res) => {
     let senha = require("crypto")
         .createHash("sha256")
@@ -33,20 +34,26 @@ router.post('/', async (req, res) => {
         .digest("hex");
 
     let paciente = await db.pacientes.create({
+        // data: {
+        //     email: req.body.email,
+        //     senha: senha,
+        //     nome: req.body.nome,
+        //     telefone: req.body.telefone,
+        //     cpf: req.body.cpf,
+        //     enderecos: {
+        //         create: {
+        //             cep: req.body.endereco.cep,
+        //             complemento: req.body.endereco.complemento,
+        //             numero: req.body.endereco.numero,
+        //         }
+        //     },
+        //     nascimento: new Date(req.body.nascimento)
+        // }
         data: {
             email: req.body.email,
             senha: senha,
             nome: req.body.nome,
-            telefone: req.body.telefone,
             cpf: req.body.cpf,
-            enderecos: {
-                create: {
-                    cep: req.body.endereco.cep,
-                    complemento: req.body.endereco.complemento,
-                    numero: req.body.endereco.numero,
-                }
-            },
-            nascimento: new Date(req.body.nascimento)
         }
     })
     axios.post("https://piratasdoraio.com/pdr-med/mailer/index.php", {
