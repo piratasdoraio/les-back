@@ -133,14 +133,14 @@ model pacientes {
   senha      String      @db.VarChar(255)
   nome       String      @db.VarChar(255)
   cpf        String      @db.VarChar(255)
-  telefone   String      @db.VarChar(255)
-  endereco   Int
-  nascimento DateTime    @db.DateTime(0)
+  telefone   String?      @db.VarChar(255)
+  endereco   Int?
+  nascimento DateTime?    @db.DateTime(0)
   genero     String?     @db.VarChar(255)
   nomesocial String?     @db.VarChar(255)
   sexo       String?     @db.VarChar(255)
   pele       String?     @db.VarChar(255)
-  enderecos  enderecos   @relation(fields: [endereco], references: [id])
+  enderecos  enderecos?   @relation(fields: [endereco], references: [id])
   consultas  consultas[]
 
   @@index([endereco], name: "endereco")
