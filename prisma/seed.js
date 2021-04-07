@@ -6,7 +6,7 @@ async function main() {
         update: {},
         create: {
             email: `raiomarco@piratasdoraio.com`,
-            senha: "123",
+            senha: "5fd924625f6ab16a19cc9807c7c506ae1813490e4ba675f843d5a10e0baacdb8",
             nome: "Marco",
             cpf: "12345678909",
             telefone: "12345678900",
@@ -26,6 +26,6 @@ main()
         console.error(e)
         process.exit(1)
     })
-    .finally(async () => {
+    .finally(async() => {
         await prisma.$disconnect()
     })
