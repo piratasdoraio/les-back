@@ -8,7 +8,18 @@ var router = express.Router()
 //   next()
 // })
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
+    data = req.body
+
+    await db.consultas.create({data: {
+        pacientes: {connect: {id: data.pacienteid}},
+        data: data.data,
+        checkin: false,
+        status: "Marcado"
+    }})
+
+    console.log("criado consulta")
+
     res.json({ "message": "Em desenvolvimento" })
 })
 
