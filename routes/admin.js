@@ -19,7 +19,7 @@ router.post('/login', async (req, res) => {
         .createHash("sha256")
         .update(data.senha)
         .digest("hex");
-    let admin = await db.admin.findFirst({
+    let admin = await db.admins.findFirst({
         where: {
             email: {
                 equals: data.email
