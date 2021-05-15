@@ -9,8 +9,51 @@ var router = express.Router()
 //   next()
 // })
 
+function verifyJWT(req, res, next) {
+    const token = req.headers['x-access-token'];
+    if (!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
+
+    jwt.verify(token, process.env.SECRET, function (err, decoded) {
+        if (err) return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
+
+        // se tudo estiver ok, salva no request para uso posterior
+        req.userId = decoded.id;
+        next();
+    });
+}
+
 router.post('/', async (req, res) => {
-    res.json({ "message": "Em desenvolvimento" })
+    data = req.body
+
+    let senha = require("crypto")
+        .createHash("sha256")
+        .update(data.senha)
+        .digest("hex");
+
+    let admin = await db.admins.create({
+        data: {
+            email: data.email,
+            senha: senha,
+            nome: data.nome,
+            cpf: data.cpf,
+            telefone: data.telefone,
+            enderecos: {
+                create: {
+                    cep: data.endereco.cep,
+                    complemento: data.endereco.complemento,
+                    numero: data.endereco.numero,
+                    }
+                },
+        }
+    })
+    axios.post("https://piratasdoraio.com/pdr-med/mailer/index.php", {
+        "token": "les-pdr-senha-yey",
+        "de": "PDR MED",
+        "email": admin.email,
+        "assunto": "Conta criada",
+        "mensagem": `Olá ${admin.nome}, sua conta foi registrada com o id ${admin.id}`
+    })
+    res.json({ "message": `Administrador ${admin.nome} criado com o id ${admin.id}` })
 })
 
 router.post('/login', async (req, res) => {
