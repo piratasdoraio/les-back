@@ -28,6 +28,8 @@ var axios = require('axios').default
 
 // Cadastro de Paciente
 router.post('/', async (req, res) => {
+    // #swagger.tags = ['paciente']
+    // #swagger.description = 'Endpoint para cadastrar um paciente.'
     let senha = require("crypto")
         .createHash("sha256")
         .update(req.body.senha)

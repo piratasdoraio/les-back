@@ -2,6 +2,9 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger_output.json')
+
 var paciente = require('./routes/paciente')
 var consulta = require('./routes/consulta')
 var medico = require('./routes/medico')
@@ -31,5 +34,7 @@ app.use('/admin', admin)
 app.use('/sistema', sistema)
 
 app.listen(3030)
+
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 console.log("rodando aq")

@@ -22,6 +22,7 @@ function verifyJWT(req, res, next) {
 }
 
 router.post('/', async (req, res) => {
+    // #swagger.description = 'Endpoint para cadastrar um funcionario.'
     data = req.body
 
     let senha = require("crypto")
