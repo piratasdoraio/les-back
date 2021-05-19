@@ -1,37 +1,19 @@
 const admin = require('../routes/admin')
-const { mockRequest, mockResponse } = require('../util/interceptor')
+// const app = require('../index') // Link to your server file
+// const supertest = require('supertest')
+// const request = supertest(app)
+//const { mockRequest, mockResponse } = require('../util/interceptor')
 
 describe('teste de admin.js', () => {
     //cadastro de paciente
     it('Async test', async done => {
-        // Do your async tests here
+        // const res = await request.get('/admin')
+
+        // expect(response.status).toBe(200)
+        // expect(response.body.message).toBe('pass!')
 
         done()
     })
-    // test('should 200 and return correct value', async () => {
-    //     let req = mockRequest();
-    //     req.params.id = 1;
-    //     const res = mockResponse();
-
-    //     await paciente.paciente(req, res);
-
-    //     expect(res.send).toHaveBeenCalledTimes(1)
-    //     expect(res.send.mock.calls.length).toBe(1);
-    //     expect(res.send).toHaveBeenCalledWith('IM A PACIENTE CONTROLLER');
-    // })
-
-    // test('should 404 and return correct value', async () => {
-    //     let req = mockRequest();
-    //     req.params.id = null;
-    //     const res = mockResponse();
-
-    //     await paciente.paciente(req, res);
-
-    //     expect(res.status).toHaveBeenCalledWith(404);
-    //     expect(res.json).toHaveBeenCalledWith({ message: 'Not Found' });
-    // })
-
-    //login de paciente
 
 
 })

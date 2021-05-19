@@ -38,3 +38,5 @@ app.listen(3030)
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 console.log("rodando aq")
+
+module.exports = app
