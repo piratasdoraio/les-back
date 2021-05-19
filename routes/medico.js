@@ -51,8 +51,6 @@ router.post('/', async(req, res) => {
                 senha: senha,
                 nome: data.nome,
                 cpf: data.cpf,
-                crm: data.crm,
-                titulacao: data.titulacao,
                 telefone: data.telefone,
                 enderecos: {
                     create: {
@@ -61,6 +59,8 @@ router.post('/', async(req, res) => {
                         numero: data.endereco.numero,
                     }
                 },
+                titulacao: data.titulacao,
+                crm: data.crm,
             }
         })
     } else {
@@ -73,7 +73,6 @@ router.post('/', async(req, res) => {
                 nome: data.nome,
                 cpf: data.cpf,
                 telefone: data.telefone,
-                crm: data.crm,
                 enderecos: {
                     create: {
                         cep: data.endereco.cep,
@@ -81,6 +80,7 @@ router.post('/', async(req, res) => {
                         numero: data.endereco.numero,
                     }
                 },
+                crm: data.crm,
             }
         })
     }
