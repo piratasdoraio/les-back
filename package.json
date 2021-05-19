@@ -10,6 +10,7 @@
     "dbreset": "npx prisma migrate reset",
     "dbdeploy": "npx prisma migrate deploy",
     "test": "npx jest",
+    "test:watch": "npx jest --watch",
     "swagger-autogen": "node swagger.js"
   },
   "repository": {
