@@ -9,6 +9,8 @@ var router = express.Router()
 // })
 
 router.post('/', async (req, res) => {
+    // #swagger.tags = ['comsulta']
+    // #swagger.description = 'Endpoint para cadastrar uma consulta.'
     data = req.body
 
     await db.consultas.create({data: {
@@ -24,10 +26,12 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
+    // #swagger.tags = ['comsulta']
     res.json({ "message": "Em desenvolvimento" })
 })
 
 router.get('/:id/exames', (req, res) => {
+    // #swagger.tags = ['comsulta']
     res.json({ "message": "Em desenvolvimento" })
 })
 

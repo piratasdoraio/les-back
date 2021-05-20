@@ -23,26 +23,26 @@ function verifyJWT(req, res, next) {
 }
 
 router.post('/', async (req, res) => {
+    // #swagger.tags = ['admin']
     // #swagger.description = 'Endpoint para cadastrar um administrador.'
-    data = req.body
 
     let senha = require("crypto")
         .createHash("sha256")
-        .update(data.senha)
+        .update(req.body.senha)
         .digest("hex");
 
     let admin = await db.admins.create({
         data: {
-            email: data.email,
+            email: req.body.email,
             senha: senha,
-            nome: data.nome,
-            cpf: data.cpf,
-            telefone: data.telefone,
+            nome: req.body.nome,
+            cpf: req.body.cpf,
+            telefone: req.body.telefone,
             enderecos: {
                 create: {
-                    cep: data.endereco.cep,
-                    complemento: data.endereco.complemento,
-                    numero: data.endereco.numero,
+                    cep: req.body.endereco.cep,
+                    complemento: req.body.endereco.complemento,
+                    numero: req.body.endereco.numero,
                     }
                 },
         }
@@ -58,15 +58,16 @@ router.post('/', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-    let data = req.body
+    // #swagger.tags = ['admin']
+    // #swagger.description = 'Endpoint para login do admin.'
     let senha = require("crypto")
         .createHash("sha256")
-        .update(data.senha)
+        .update(req.body.senha)
         .digest("hex");
     let admin = await db.admins.findFirst({
         where: {
             email: {
-                equals: data.email
+                equals: req.body.email
             },
             senha: {
                 equals: senha

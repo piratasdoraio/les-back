@@ -9,18 +9,22 @@ var router = express.Router()
 // })
 
 router.post('/', (req, res) => {
+    // #swagger.tags = ['exame']
     res.json({ "message": "Em desenvolvimento" })
 })
 
 router.post('/:id', (req, res) => {
+    // #swagger.tags = ['exame']
     res.json({ "message": "Em desenvolvimento" })
 })
 
 router.post('/:id/realizar', (req, res) => {
+    // #swagger.tags = ['exame']
     res.json({ "message": "Em desenvolvimento" })
 })
 
 router.patch('/:id/validar', (req, res) => {
+    // #swagger.tags = ['exame']
     res.json({ "message": "Em desenvolvimento" })
 })
 

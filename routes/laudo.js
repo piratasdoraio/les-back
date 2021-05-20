@@ -9,10 +9,12 @@ var router = express.Router()
 // })
 
 router.post('/', (req, res) => {
+    // #swagger.tags = ['laudo']
     res.json({ "message": "Em desenvolvimento" })
 })
 
 // router.patch('/:id/validar', (req, res) => {
+//    // #swagger.tags = ['laudo']
 //     res.json({ "message": "Em desenvolvimento" })
 // })
 

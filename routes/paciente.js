@@ -69,6 +69,8 @@ router.post('/', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
+    // #swagger.tags = ['paciente']
+    // #swagger.description = 'Endpoint para login do paciente.'
     let senha = require("crypto")
         .createHash("sha256")
         .update(req.body.senha)
@@ -102,14 +104,17 @@ router.post('/login', async (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
+    // #swagger.tags = ['paciente']
     res.json({ "message": "Em desenvolvimento" })
 })
 
 router.patch('/:id', (req, res) => {
+    // #swagger.tags = ['paciente']
     res.json({ "message": "Em desenvolvimento" })
 })
 
 router.get('/:id/consultas', (req, res) => {
+    // #swagger.tags = ['paciente']
     res.json({ "message": "Em desenvolvimento" })
 })
 

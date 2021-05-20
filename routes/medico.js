@@ -12,12 +12,13 @@ var router = express.Router()
 
 // Cadastro de Medico
 router.post('/', async(req, res) => {
-    data = req.body
-    tipo = data.tipo
+    // #swagger.tags = ['medico']
+    // #swagger.description = 'Endpoint para cadastrar um medico.'
+    tipo = req.body.tipo
 
     let senha = require("crypto")
         .createHash("sha256")
-        .update(data.senha)
+        .update(req.body.senha)
         .digest("hex");
 
     let medico;
@@ -26,20 +27,20 @@ router.post('/', async(req, res) => {
         medico = await db.medicos.create({
             data: {
                 tipo: tipo,
-                email: data.email,
+                email: req.body.email,
                 senha: senha,
-                nome: data.nome,
-                cpf: data.cpf,
-                telefone: data.telefone,
+                nome: req.body.nome,
+                cpf: req.body.cpf,
+                telefone: req.body.telefone,
                 enderecos: {
                     create: {
-                        cep: data.endereco.cep,
-                        complemento: data.endereco.complemento,
-                        numero: data.endereco.numero,
+                        cep: req.body.endereco.cep,
+                        complemento: req.body.endereco.complemento,
+                        numero: req.body.endereco.numero,
                     }
                 },
-                residenciainicio: data.residenciainicio,
-                residenciafim: data.residenciafim,
+                residenciainicio: req.body.residenciainicio,
+                residenciafim: req.body.residenciafim,
             }
 
         })
@@ -47,20 +48,25 @@ router.post('/', async(req, res) => {
         medico = await db.medicos.create({
             data: {
                 tipo: tipo,
-                email: data.email,
+                email: req.body.email,
                 senha: senha,
-                nome: data.nome,
-                cpf: data.cpf,
-                telefone: data.telefone,
+                nome: req.body.nome,
+                cpf: req.body.cpf,
+                crm: req.body.crm,
+                titulacao: req.body.titulacao,
+                telefone: req.body.telefone,
+                nome: req.body.nome,
+                cpf: req.body.cpf,
+                telefone: req.body.telefone,
                 enderecos: {
                     create: {
-                        cep: data.endereco.cep,
-                        complemento: data.endereco.complemento,
-                        numero: data.endereco.numero,
+                        cep: req.body.endereco.cep,
+                        complemento: req.body.endereco.complemento,
+                        numero: req.body.endereco.numero,
                     }
                 },
-                titulacao: data.titulacao,
-                crm: data.crm,
+                titulacao: req.body.titulacao,
+                crm: req.body.crm,
             }
         })
     } else {
@@ -68,19 +74,23 @@ router.post('/', async(req, res) => {
         medico = await db.medicos.create({
             data: {
                 tipo: tipo,
-                email: data.email,
+                email: req.body.email,
                 senha: senha,
-                nome: data.nome,
-                cpf: data.cpf,
-                telefone: data.telefone,
+                nome: req.body.nome,
+                cpf: req.body.cpf,
+                telefone: req.body.telefone,
+                crm: req.body.crm,
+                nome: req.body.nome,
+                cpf: req.body.cpf,
+                telefone: req.body.telefone,
                 enderecos: {
                     create: {
-                        cep: data.endereco.cep,
-                        complemento: data.endereco.complemento,
-                        numero: data.endereco.numero,
+                        cep: req.body.endereco.cep,
+                        complemento: req.body.endereco.complemento,
+                        numero: req.body.endereco.numero,
                     }
                 },
-                crm: data.crm,
+                crm: req.body.crm,
             }
         })
     }
@@ -89,15 +99,16 @@ router.post('/', async(req, res) => {
 })
 
 router.post('/login', async(req, res) => {
-    let data = req.body
+    // #swagger.tags = ['medico']
+    // #swagger.description = 'Endpoint para login do medico.'
     let senha = require("crypto")
         .createHash("sha256")
-        .update(data.senha)
+        .update(req.body.senha)
         .digest("hex");
     let medico = await db.medicos.findFirst({
         where: {
             email: {
-                equals: data.email
+                equals: req.body.email
             },
             senha: {
                 equals: senha
@@ -128,10 +139,12 @@ router.post('/login', async(req, res) => {
 })
 
 router.get('/disponivel', (req, res) => {
+    // #swagger.tags = ['medico']
     res.json({ "message": "Em desenvolvimento" })
 })
 
 router.patch('/disponivel/:id', (req, res) => {
+    // #swagger.tags = ['medico']
     res.json({ "message": "Em desenvolvimento" })
 })
 
