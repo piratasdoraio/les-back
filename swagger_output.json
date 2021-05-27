@@ -135,7 +135,23 @@
           "comsulta"
         ],
         "description": "Endpoint para cadastrar uma consulta.",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "pacienteId": {
+                  "example": "any"
+                },
+                "data": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {}
       }
     },
