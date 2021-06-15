@@ -42,9 +42,19 @@ router.get('/:id', async (req, res) => {
     res.json({ "consultas": consultas })
 })
 
-router.get('/:id/exames', (req, res) => {
-    // #swagger.tags = ['comsulta']
-    res.json({ "message": "Em desenvolvimento" })
+router.get('/:id/exames', async(req, res) => {
+    // #swagger.tags = ['consulta']
+    let exames = await db.exames.findMany({
+        where:{
+            consulta: parseInt(req.params.id)
+        },
+        orderBy: {
+            id: 'desc'
+        }
+    })
+
+    res.json({ exames: exames })
+    
 })
 
 module.exports = router
