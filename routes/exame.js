@@ -7,19 +7,10 @@ var router = express.Router()
 //   console.log('Time: ', Date.now())
 //   next()
 // })
-router.get('/:id', async(req, res)=>{
-    let id = parseInt(req.params.id)
-    let exame = await db.exames.findMany({
-        where: {
-            consulta: id,
-        },
-        orderBy: {
-            id: 'desc',
-        }    
-    }) 
-    
-    res.json({ exame: exame})
-})
+
+const multer = require('multer');
+const upload = multer();
+
 router.post('/', async (req, res) => {
     // #swagger.tags = ['exame']
     let exame = await db.exames.create({data: {
@@ -29,7 +20,7 @@ router.post('/', async (req, res) => {
         status: "Marcado"
     }})
 
-    res.json({exame: exame})
+    res.json({ "message": "Exame marcado com o id " + exame.id })
 })
 
 router.post('/:id', (req, res) => {
@@ -37,9 +28,34 @@ router.post('/:id', (req, res) => {
     res.json({ "message": "Em desenvolvimento" })
 })
 
-router.post('/:id/realizar', (req, res) => {
+router.post('/:id/realizar', upload.single("arquivo"), async (req, res) => {
     // #swagger.tags = ['exame']
-    res.json({ "message": "Em desenvolvimento" })
+
+    console.log(req.body.teste)
+
+    console.log(req.file)
+
+    // return res.json({ "message": "Em desenvolvimento" })
+
+    let exame = await db.exames.update({
+        where: { id: parseInt(req.params.id) }, data: {
+
+            arquivos: {
+
+                create: {
+                    nome: req.file.originalname,
+                    mime: req.file.mimetype,
+                    data: req.file.buffer
+                }
+            }
+        }
+    })
+
+    // let arquivo = await db.arquivos.create({
+
+    // })
+
+    res.json({ "message": "Exame realizado com o id " + exame.id })
 })
 
 router.patch('/:id/validar', (req, res) => {
