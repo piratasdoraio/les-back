@@ -9,16 +9,18 @@ var router = express.Router()
 // })
 
 router.post('/', async (req, res) => {
-    // #swagger.tags = ['comsulta']
+    // #swagger.tags = ['consulta']
     // #swagger.description = 'Endpoint para cadastrar uma consulta.'
-    
 
-    let consulta = await db.consultas.create({data: {
-        pacientes: {connect: {id: req.body.pacienteId}},
-        data: req.body.data,
-        checkin: false,
-        status: "Marcado"
-    }})
+
+    let consulta = await db.consultas.create({
+        data: {
+            pacientes: { connect: { id: req.body.pacienteId } },
+            data: req.body.data,
+            checkin: false,
+            status: "Marcado"
+        }
+    })
 
     console.log("criado consulta")
 
@@ -29,23 +31,23 @@ router.get('/:id', async (req, res) => {
     // #swagger.tags = ['comsulta']
     let id = parseInt(req.params.id)
     let consultas = await db.consultas.findMany({
-        
+
         where: {
             paciente: id,
         },
         orderBy: {
             id: 'desc',
         }
-        
-    }) 
-    
+
+    })
+
     res.json({ "consultas": consultas })
 })
 
-router.get('/:id/exames', async(req, res) => {
+router.get('/:id/exames', async (req, res) => {
     // #swagger.tags = ['consulta']
     let exames = await db.exames.findMany({
-        where:{
+        where: {
             consulta: parseInt(req.params.id)
         },
         orderBy: {
@@ -54,7 +56,7 @@ router.get('/:id/exames', async(req, res) => {
     })
 
     res.json({ exames: exames })
-    
+
 })
 
 module.exports = router
