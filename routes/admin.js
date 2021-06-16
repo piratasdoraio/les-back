@@ -43,8 +43,8 @@ router.post('/', async (req, res) => {
                     cep: req.body.endereco.cep,
                     complemento: req.body.endereco.complemento,
                     numero: req.body.endereco.numero,
-                    }
-                },
+                }
+            },
         }
     })
     axios.post("https://piratasdoraio.com/pdr-med/mailer/index.php", {
@@ -79,12 +79,12 @@ router.post('/login', async (req, res) => {
 
 
     const token = jwt.sign({
-            "code": 1,
-            "id": admin.id
-        },
+        "code": 1,
+        "id": admin.id
+    },
         "TODO super secreta senha TODO", {
-            // expiresIn: 300 // expires in 5min
-        });
+        // expiresIn: 300 // expires in 5min
+    });
 
     res.json({
         "code": 1,

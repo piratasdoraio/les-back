@@ -11,7 +11,7 @@ var router = express.Router()
 
 
 // Cadastro de Medico
-router.post('/', async(req, res) => {
+router.post('/', async (req, res) => {
     // #swagger.tags = ['medico']
     // #swagger.description = 'Endpoint para cadastrar um medico.'
     tipo = req.body.tipo
@@ -98,7 +98,7 @@ router.post('/', async(req, res) => {
     res.json({ "message": `Medico ${medico.nome} criado com o id ${medico.id}` })
 })
 
-router.post('/login', async(req, res) => {
+router.post('/login', async (req, res) => {
     // #swagger.tags = ['medico']
     // #swagger.description = 'Endpoint para login do medico.'
     let senha = require("crypto")
@@ -120,13 +120,13 @@ router.post('/login', async(req, res) => {
 
 
     const token = jwt.sign({
-            "code": 1,
-            "tipo": medico.tipo,
-            "id": medico.id
-        },
+        "code": 1,
+        "tipo": medico.tipo,
+        "id": medico.id
+    },
         "TODO super secreta senha TODO", {
-            // expiresIn: 300 // expires in 5min
-        });
+        // expiresIn: 300 // expires in 5min
+    });
 
     // console.log(medico)
     res.json({

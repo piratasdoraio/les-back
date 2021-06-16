@@ -108,13 +108,13 @@ router.get('/:id', (req, res) => {
     res.json({ "message": "Em desenvolvimento" })
 })
 
-router.patch('/:id', async(req, res) => {
+router.patch('/:id', async (req, res) => {
     // #swagger.tags = ['paciente']
     let paciente = await db.pacientes.update({
         where: {
             id: parseInt(req.params.id)
         },
-        data:{
+        data: {
             email: req.body.email,
             senha: req.body.senha,
             nome: req.body.nome,
@@ -124,9 +124,9 @@ router.patch('/:id', async(req, res) => {
     res.json({ "message": "Os dados do paciente foram atualizados" })
 })
 
-router.get('/:id/consultas', async(req, res) => {
+router.get('/:id/consultas', async (req, res) => {
     let consultas = await db.consultas.findMany({
-        where:{
+        where: {
             paciente: parseInt(req.params.id)
         },
         orderBy: {
